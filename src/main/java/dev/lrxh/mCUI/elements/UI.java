@@ -10,19 +10,23 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class UI {
-    private final HashMap<String, Element> elements;
+    private final List<Element> elements;
     private int CURRENT_UNICODE;
     private PackServer packServer;
     private int port;
+    private final List<UUID> viewers;
 
     public UI() {
-        this.elements = new HashMap<>();
+        this.elements = new ArrayList<>();
         this.CURRENT_UNICODE = 0xE000;
         this.packServer = null;
+        this.viewers = new ArrayList<>();
     }
 
     public void load(int port) {
@@ -51,6 +55,7 @@ public class UI {
         Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
         player.setResourcePack("http://localhost:" + port + "/pack.zip", (@org.jetbrains.annotations.Nullable byte[]) null, true);
+        viewers.add(uuid);
     }
 
     public void removeViewer(UUID uuid) {
@@ -62,9 +67,10 @@ public class UI {
         if (player == null) return;
         String url = "http://localhost:" + port + "/pack.zip";
         player.removeResourcePack(UUID.nameUUIDFromBytes(url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+        viewers.remove(uuid);
     }
 
-    public void add(String name, int height, int ascent, File image) {
+    public Element register(int height, int ascent, File image) {
         if (ascent > height) {
             throw new IllegalArgumentException("Ascent cannot be greater than height");
         }
@@ -76,7 +82,9 @@ public class UI {
                 ascent
         );
 
-        elements.put(name, element);
+        elements.add(element);
+
+        return element;
     }
 
     private void generate(File outputFolder) {
@@ -96,8 +104,7 @@ public class UI {
             fontJsonBuilder.append("{\n\t\"providers\": [\n");
 
             int i = 0;
-            for (var entry : elements.entrySet()) {
-                Element e = entry.getValue();
+            for (Element e : elements) {
                 BufferedImage img = ImageIO.read(e.getImage());
 
                 String textureName = "icon_" + i + ".png";
@@ -154,5 +161,9 @@ public class UI {
         } catch (IOException e) {
             System.err.println("Failed to zip folder: " + e.getMessage());
         }
+    }
+
+    public List<UUID> getViewers() {
+        return viewers;
     }
 }

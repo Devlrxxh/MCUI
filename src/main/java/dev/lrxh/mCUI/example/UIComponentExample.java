@@ -1,0 +1,24 @@
+package dev.lrxh.mCUI.example;
+
+import dev.lrxh.mCUI.elements.Element;
+import dev.lrxh.mCUI.component.UIComponent;
+import dev.lrxh.mCUI.util.PortUtils;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+
+public class UIComponentExample extends UIComponent {
+    private final Element element;
+
+    public UIComponentExample(JavaPlugin plugin) {
+        element = getUi().register(27, 2, new File(plugin.getDataFolder(), "images/icon.png"));
+        getUi().load(PortUtils.getPort());
+    }
+
+    @Override
+    public void tick(Player player) {
+        char unicodeChar = (char) element.getUnicode();
+        player.sendRawMessage(String.valueOf(unicodeChar));
+    }
+}

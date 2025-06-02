@@ -1,6 +1,10 @@
 dev\lrxh\mCUI\pack\PackServer$FileHandler.class
-dev\lrxh\mCUI\elements\ElementManager.class
+dev\lrxh\mCUI\component\ComponentRunnable.class
+dev\lrxh\mCUI\example\UIComponentExample.class
 dev\lrxh\mCUI\pack\PackServer.class
 dev\lrxh\mCUI\elements\Element.class
 dev\lrxh\mCUI\elements\UI.class
 dev\lrxh\mCUI\MCUI.class
+dev\lrxh\mCUI\util\PortUtils.class
+dev\lrxh\mCUI\component\ComponentManager.class
+dev\lrxh\mCUI\component\UIComponent.class
