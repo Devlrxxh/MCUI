@@ -1,6 +1,7 @@
 package dev.lrxh.mCUI.elements;
 
-import dev.lrxh.mCUI.pack.PackServer;
+import dev.lrxh.mCUI.MCUI;
+import dev.lrxh.mCUI.util.NameUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,29 +12,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 public class UI {
     private final List<Element> elements;
-    private int CURRENT_UNICODE;
-    private PackServer packServer;
-    private int port;
     private final List<UUID> viewers;
+    private final String name;
+    private int CURRENT_UNICODE;
 
     public UI() {
         this.elements = new ArrayList<>();
         this.CURRENT_UNICODE = 0xE000;
-        this.packServer = null;
         this.viewers = new ArrayList<>();
+        this.name = NameUtils.get();
     }
 
-    public void load(int port) {
-        this.port = port;
+    public void load() {
         Path tempFolder;
         try {
-            tempFolder = Files.createTempDirectory("mcui-pack-" + port);
+            tempFolder = Files.createTempDirectory(name);
         } catch (IOException e) {
             throw new RuntimeException("Failed to create temporary directory", e);
         }
@@ -43,29 +41,20 @@ public class UI {
         File zipFile = new File(tempFolder.toFile(), "pack.zip");
         zipFolder(tempFolder, zipFile.toPath());
 
-        packServer = new PackServer(zipFile, port);
-        packServer.start();
+        MCUI.getInstance().getPackServer().addFile(name, zipFile);
     }
 
     public void addViewer(UUID uuid) {
-        if (packServer == null) {
-            throw new IllegalStateException("Pack server is not initialized. Call load() first.");
-        }
-
         Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
-        player.setResourcePack("http://localhost:" + port + "/pack.zip", (@org.jetbrains.annotations.Nullable byte[]) null, true);
+        player.setResourcePack("http://localhost:" + 80 + "/" + name, (@org.jetbrains.annotations.Nullable byte[]) null, true);
         viewers.add(uuid);
     }
 
     public void removeViewer(UUID uuid) {
-        if (packServer == null) {
-            throw new IllegalStateException("Pack server is not initialized. Call load() first.");
-        }
-
         Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
-        String url = "http://localhost:" + port + "/pack.zip";
+        String url = "http://localhost:" + 80 + "/" + name;
         player.removeResourcePack(UUID.nameUUIDFromBytes(url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
         viewers.remove(uuid);
     }

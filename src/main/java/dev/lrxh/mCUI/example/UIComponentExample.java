@@ -1,8 +1,7 @@
 package dev.lrxh.mCUI.example;
 
-import dev.lrxh.mCUI.elements.Element;
 import dev.lrxh.mCUI.component.UIComponent;
-import dev.lrxh.mCUI.util.PortUtils;
+import dev.lrxh.mCUI.elements.Element;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,7 +12,7 @@ public class UIComponentExample extends UIComponent {
 
     public UIComponentExample(JavaPlugin plugin) {
         element = getUi().register(27, 2, new File(plugin.getDataFolder(), "images/icon.png"));
-        getUi().load(PortUtils.getPort());
+        getUi().load();
     }
 
     @Override
