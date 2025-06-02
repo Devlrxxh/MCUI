@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ElementManager {
     private final List<UI> uis;
+    private static int port;
 
     public ElementManager() {
         this.uis = new ArrayList<>();
