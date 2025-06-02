@@ -17,7 +17,9 @@ public class UIComponentExample extends UIComponent {
 
     @Override
     public void tick(Player player) {
-        char unicodeChar = (char) element.getUnicode();
-        player.sendRawMessage(String.valueOf(unicodeChar));
+        if (player.getHealth() > 19) {
+            char unicodeChar = (char) element.getUnicode();
+            player.sendRawMessage(String.valueOf(unicodeChar));
+        }
     }
 }

@@ -15,6 +15,7 @@ import java.util.Map;
 public class PackServer {
     private final Map<String, File> filesToServe;
     private final int port;
+    private HttpServer server;
 
     public PackServer() {
         this.filesToServe = new HashMap<>();
@@ -22,18 +23,30 @@ public class PackServer {
     }
 
     public void addFile(String path, File file) {
+        if (path == null || path.trim().isEmpty()) {
+            throw new IllegalArgumentException("[PackServer] Path must not be null or empty");
+        }
+
+        if (!path.startsWith("/")) {
+            path = "/" + path;
+        }
+
         filesToServe.put(path, file);
+
+        if (server != null) {
+            server.createContext(path, new FileHandler(file));
+            System.out.println("[PackServer] Serving " + file.getName() + " at http://localhost:" + port + path);
+        }
     }
 
     public void start() {
         Thread serverThread = new Thread(() -> {
             try {
-                HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+                server = HttpServer.create(new InetSocketAddress(port), 0);
 
                 for (Map.Entry<String, File> entry : filesToServe.entrySet()) {
                     String path = entry.getKey();
                     File file = entry.getValue();
-
                     server.createContext(path, new FileHandler(file));
                     System.out.println("[PackServer] Serving " + file.getName() + " at http://localhost:" + port + path);
                 }

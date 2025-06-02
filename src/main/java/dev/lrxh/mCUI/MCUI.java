@@ -27,12 +27,15 @@ public final class MCUI extends JavaPlugin implements Listener {
 
         this.componentManager = new ComponentManager();
 
-        ui = new UIComponentExample(this);
-
-        componentManager.registerComponent(ui);
-
         packServer = new PackServer();
         packServer.start();
+
+
+        //
+        ui = new UIComponentExample(this);
+        componentManager.registerComponent(ui);
+        //
+
 
         Bukkit.getScheduler().runTaskTimer(this, new ComponentRunnable(componentManager), 0L, 2L);
 
