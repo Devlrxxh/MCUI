@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ElementManager {
-    private final List<UI> uis;
     private static int port;
+    private final List<UI> uis;
 
     public ElementManager() {
         this.uis = new ArrayList<>();

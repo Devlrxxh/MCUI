@@ -2,7 +2,6 @@ package dev.lrxh.mCUI;
 
 import dev.lrxh.mCUI.elements.ElementManager;
 import dev.lrxh.mCUI.elements.UI;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -18,9 +17,8 @@ public final class MCUI extends JavaPlugin implements Listener {
     public void onEnable() {
         this.elementManager = new ElementManager();
 
-        ui = new UI(this);
-        ui.add(new File(this.getDataFolder(), "images/icon.png"));
-        ui.add(new File(this.getDataFolder(), "images/icon.png"));
+        ui = new UI();
+        ui.add("icon", 27, 2, new File(this.getDataFolder(), "images/icon.png"));
 
         elementManager.addUI(ui);
 
@@ -37,8 +35,5 @@ public final class MCUI extends JavaPlugin implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         ui.addViewer(event.getPlayer().getUniqueId());
-        Bukkit.getScheduler().runTaskLater(this, () -> {
-            ui.removeViewer(event.getPlayer().getUniqueId());
-        },  100L); // Update every second
     }
 }

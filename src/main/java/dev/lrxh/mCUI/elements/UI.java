@@ -1,42 +1,35 @@
 package dev.lrxh.mCUI.elements;
 
-import dev.lrxh.mCUI.MCUI;
 import dev.lrxh.mCUI.pack.PackServer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class UI {
-    private final List<Element> elements;
+    private final HashMap<String, Element> elements;
     private int CURRENT_UNICODE;
-    private List<UUID> uuids;
     private PackServer packServer;
-    private final MCUI plugin;
     private int port;
-    private Path tempFolder;
 
-    public UI(MCUI plugin) {
-        this.elements = new ArrayList<>();
+    public UI() {
+        this.elements = new HashMap<>();
         this.CURRENT_UNICODE = 0xE000;
-        this.uuids = new ArrayList<>();
         this.packServer = null;
-        this.plugin = plugin;
     }
 
     public void load(int port) {
         this.port = port;
+        Path tempFolder;
         try {
-            this.tempFolder = Files.createTempDirectory("mcui-pack-" + port);
+            tempFolder = Files.createTempDirectory("mcui-pack-" + port);
         } catch (IOException e) {
             throw new RuntimeException("Failed to create temporary directory", e);
         }
@@ -58,8 +51,6 @@ public class UI {
         Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
         player.setResourcePack("http://localhost:" + port + "/pack.zip", (@org.jetbrains.annotations.Nullable byte[]) null, true);
-
-        uuids.add(uuid);
     }
 
     public void removeViewer(UUID uuid) {
@@ -67,25 +58,29 @@ public class UI {
             throw new IllegalStateException("Pack server is not initialized. Call load() first.");
         }
 
-        Player player  =Bukkit.getPlayer(uuid);
+        Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
         String url = "http://localhost:" + port + "/pack.zip";
         player.removeResourcePack(UUID.nameUUIDFromBytes(url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
-        uuids.remove(uuid);
     }
 
-    public void add(File image) {
+    public void add(String name, int height, int ascent, File image) {
+        if (ascent > height) {
+            throw new IllegalArgumentException("Ascent cannot be greater than height");
+        }
+
         Element element = new Element(
                 CURRENT_UNICODE++,
-                image
+                image,
+                height,
+                ascent
         );
 
-        elements.add(element);
+        elements.put(name, element);
     }
 
     private void generate(File outputFolder) {
         try {
-            final int GLYPH_SIZE = 16;
 
             if (!outputFolder.exists() && !outputFolder.mkdirs()) {
                 throw new IOException("Failed to create output directory");
@@ -100,17 +95,10 @@ public class UI {
             StringBuilder fontJsonBuilder = new StringBuilder();
             fontJsonBuilder.append("{\n\t\"providers\": [\n");
 
-            for (int i = 0; i < elements.size(); i++) {
-                Element e = elements.get(i);
+            int i = 0;
+            for (var entry : elements.entrySet()) {
+                Element e = entry.getValue();
                 BufferedImage img = ImageIO.read(e.getImage());
-
-                if (img.getWidth() != GLYPH_SIZE || img.getHeight() != GLYPH_SIZE) {
-                    BufferedImage resized = new BufferedImage(GLYPH_SIZE, GLYPH_SIZE, BufferedImage.TYPE_INT_ARGB);
-                    Graphics2D g = resized.createGraphics();
-                    g.drawImage(img, 0, 0, GLYPH_SIZE, GLYPH_SIZE, null);
-                    g.dispose();
-                    img = resized;
-                }
 
                 String textureName = "icon_" + i + ".png";
                 File textureFile = textureFolder.resolve(textureName).toFile();
@@ -119,8 +107,8 @@ public class UI {
                 fontJsonBuilder.append("\t\t{\n")
                         .append("\t\t\t\"type\": \"bitmap\",\n")
                         .append("\t\t\t\"file\": \"minecraft:custom/").append(textureName).append("\",\n")
-                        .append("\t\t\t\"ascent\": 8,\n")
-                        .append("\t\t\t\"height\": 8,\n")
+                        .append("\t\t\t\"ascent\": ").append(e.getAscent()).append(",\n")
+                        .append("\t\t\t\"height\": ").append(e.getHeight()).append(",\n")
                         .append("\t\t\t\"chars\": [\"\\u").append(String.format("%04X", e.getUnicode())).append("\"]\n")
                         .append("\t\t}");
 
@@ -133,18 +121,17 @@ public class UI {
             Files.write(fontFolder.resolve("default.json"), fontJsonBuilder.toString().getBytes());
 
             String mcmeta = """
-            {
-              "pack": {
-                "pack_format": 15,
-                "description": "Auto-generated custom UI font pack"
-              }
-            }
-            """;
+                    {
+                      "pack": {
+                        "pack_format": 15,
+                        "description": "Auto-generated custom UI font pack"
+                      }
+                    }
+                    """;
             Files.write(outputFolder.toPath().resolve("pack.mcmeta"), mcmeta.getBytes());
 
             System.out.println("Dynamic resource pack generated at " + outputFolder.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
     }
 
