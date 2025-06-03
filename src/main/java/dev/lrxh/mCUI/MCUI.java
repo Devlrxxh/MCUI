@@ -31,7 +31,7 @@ public final class MCUI extends JavaPlugin implements Listener {
         packServer.start();
 
 
-        //
+        // Example UI Component
         ui = new UIComponentExample(this);
         componentManager.registerComponent(ui);
         //

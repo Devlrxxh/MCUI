@@ -1,6 +1,7 @@
 package dev.lrxh.mCUI.example;
 
 import dev.lrxh.mCUI.component.UIComponent;
+import dev.lrxh.mCUI.elements.DefaultUIProvider;
 import dev.lrxh.mCUI.elements.Element;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,9 +18,6 @@ public class UIComponentExample extends UIComponent {
 
     @Override
     public void tick(Player player) {
-        if (player.getHealth() > 19) {
-            char unicodeChar = (char) element.getUnicode();
-            player.sendRawMessage(String.valueOf(unicodeChar));
-        }
+        DefaultUIProvider.ACTION_BAR.render(player, element);
     }
 }
