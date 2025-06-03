@@ -3,6 +3,7 @@ package dev.lrxh.mCUI.pack;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class PackServer {
 
         if (server != null) {
             server.createContext(path, new FileHandler(file));
-            System.out.println("[PackServer] Serving " + file.getName() + " at http://localhost:" + port + path);
+            Bukkit.getLogger().info(("[PackServer] Serving " + file.getName() + " at http://localhost:" + port + path));
         }
     }
 
@@ -48,13 +49,13 @@ public class PackServer {
                     String path = entry.getKey();
                     File file = entry.getValue();
                     server.createContext(path, new FileHandler(file));
-                    System.out.println("[PackServer] Serving " + file.getName() + " at http://localhost:" + port + path);
+                    Bukkit.getLogger().info(("[PackServer] Serving " + file.getName() + " at http://localhost:" + port + path));
                 }
 
                 server.setExecutor(null);
                 server.start();
             } catch (IOException e) {
-                System.err.println("[PackServer] Failed to start: " + e.getMessage());
+                Bukkit.getLogger().severe("[PackServer] Failed to start: " + e.getMessage());
             }
         });
 

@@ -59,16 +59,12 @@ public class UI {
         viewers.remove(uuid);
     }
 
-    public Element register(int height, int ascent, File image) {
-        if (ascent > height) {
-            throw new IllegalArgumentException("Ascent cannot be greater than height");
-        }
-
+    public Element register(File image) {
         Element element = new Element(
                 CURRENT_UNICODE++,
                 image,
-                height,
-                ascent
+                8,
+                7
         );
 
         elements.add(element);
@@ -126,7 +122,7 @@ public class UI {
                     """;
             Files.write(outputFolder.toPath().resolve("pack.mcmeta"), mcmeta.getBytes());
 
-            System.out.println("Dynamic resource pack generated at " + outputFolder.getAbsolutePath());
+            Bukkit.getLogger().info(("Dynamic resource pack generated at " + outputFolder.getAbsolutePath()));
         } catch (IOException ignored) {
         }
     }

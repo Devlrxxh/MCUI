@@ -1,7 +1,11 @@
 package dev.lrxh.mCUI.component;
 
+import dev.lrxh.mCUI.elements.Element;
 import dev.lrxh.mCUI.elements.UI;
+import dev.lrxh.mCUI.pack.AssetsLoader;
 import org.bukkit.entity.Player;
+
+import java.io.File;
 
 public abstract class UIComponent {
     private final UI ui;
@@ -15,4 +19,16 @@ public abstract class UIComponent {
     }
 
     public abstract void tick(Player player);
+
+    public Element register(File file) {
+        return getUi().register(file);
+    }
+
+    public Element register(String url) {
+        return getUi().register(AssetsLoader.load(url));
+    }
+
+    public void load() {
+        getUi().load();
+    }
 }

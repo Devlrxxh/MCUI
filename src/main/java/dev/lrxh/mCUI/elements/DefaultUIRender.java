@@ -2,7 +2,7 @@ package dev.lrxh.mCUI.elements;
 
 import org.bukkit.entity.Player;
 
-public enum DefaultUIProvider {
+public enum DefaultUIRender {
         ACTION_BAR {
         @Override
         public void render(Player player, Element element) {
