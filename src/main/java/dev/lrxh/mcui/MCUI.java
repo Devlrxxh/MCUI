@@ -23,10 +23,6 @@ public final class MCUI extends JavaPlugin {
         Bukkit.getScheduler().runTaskTimer(this, new ComponentRunnable(componentManager), 0L, 2L);
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
 
     public ComponentManager getComponentManager() {
         return componentManager;

@@ -33,3 +33,5 @@ build/
 java/build/**
 /.idea
 .idea/vcs.xml
+
+dependency-reduced-pom.xml
