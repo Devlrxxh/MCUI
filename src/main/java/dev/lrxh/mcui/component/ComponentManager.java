@@ -14,8 +14,10 @@ public class ComponentManager {
         this.components = new ArrayList<>();
     }
 
-    public void registerComponent(UIComponent component) {
+    public UIComponent registerComponent(UIComponent component) {
         components.add(component);
+
+        return component;
     }
 
     public void run() {
