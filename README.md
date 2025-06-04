@@ -40,6 +40,12 @@ Add MCUI to your Maven project:
 </dependency>
 ```
 
+> ⚠️ **Important:** You must declare `MCUI` as a dependency in your `plugin.yml` to ensure your plugin loads after MCUI.  
+> Example:
+> ```yaml
+> depend: [MCUI]
+> ```
+
 ---
 
 ## 🛠️ Usage
@@ -69,7 +75,6 @@ public class UIComponentExample extends UIComponent {
         );
     }
 }
-
 ```
 
 ### 2. Register Your Component
