@@ -1,6 +1,6 @@
-package dev.lrxh.mCUI.pack;
+package dev.lrxh.mcui.pack;
 
-import dev.lrxh.mCUI.MCUI;
+import dev.lrxh.mcui.MCUI;
 import org.bukkit.Bukkit;
 
 import javax.imageio.ImageIO;

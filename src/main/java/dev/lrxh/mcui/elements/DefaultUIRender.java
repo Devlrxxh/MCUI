@@ -1,4 +1,4 @@
-package dev.lrxh.mCUI.elements;
+package dev.lrxh.mcui.elements;
 
 import org.bukkit.entity.Player;
 

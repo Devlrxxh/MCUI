@@ -1,8 +1,8 @@
-package dev.lrxh.mCUI.component;
+package dev.lrxh.mcui.component;
 
-import dev.lrxh.mCUI.elements.Element;
-import dev.lrxh.mCUI.elements.UI;
-import dev.lrxh.mCUI.pack.AssetsLoader;
+import dev.lrxh.mcui.elements.Element;
+import dev.lrxh.mcui.elements.UI;
+import dev.lrxh.mcui.pack.AssetsLoader;
 import org.bukkit.entity.Player;
 
 import java.io.File;

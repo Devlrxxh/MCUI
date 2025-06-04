@@ -1,4 +1,4 @@
 name: MCUI
 version: '1.0.0'
-main: dev.lrxh.mCUI.MCUI
+main: dev.lrxh.mcui.MCUI
 api-version: '1.21'

@@ -1,9 +1,9 @@
-package dev.lrxh.mCUI;
+package dev.lrxh.mcui;
 
-import dev.lrxh.mCUI.component.ComponentManager;
-import dev.lrxh.mCUI.component.ComponentRunnable;
-import dev.lrxh.mCUI.example.UIComponentExample;
-import dev.lrxh.mCUI.pack.PackServer;
+import dev.lrxh.mcui.component.ComponentManager;
+import dev.lrxh.mcui.component.ComponentRunnable;
+import dev.lrxh.mcui.example.UIComponentExample;
+import dev.lrxh.mcui.pack.PackServer;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

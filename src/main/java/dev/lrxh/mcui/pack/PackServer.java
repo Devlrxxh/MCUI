@@ -1,4 +1,4 @@
-package dev.lrxh.mCUI.pack;
+package dev.lrxh.mcui.pack;
 
 import io.netty.channel.ChannelHandlerContext;
 import net.mcbrawls.inject.http.HttpByteBuf;

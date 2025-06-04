@@ -1,8 +1,8 @@
-package dev.lrxh.mCUI.example;
+package dev.lrxh.mcui.example;
 
-import dev.lrxh.mCUI.component.UIComponent;
-import dev.lrxh.mCUI.elements.DefaultUIRender;
-import dev.lrxh.mCUI.elements.Element;
+import dev.lrxh.mcui.component.UIComponent;
+import dev.lrxh.mcui.elements.DefaultUIRender;
+import dev.lrxh.mcui.elements.Element;
 import org.bukkit.entity.Player;
 
 public class UIComponentExample extends UIComponent {

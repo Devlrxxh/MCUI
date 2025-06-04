@@ -1,4 +1,4 @@
-package dev.lrxh.mCUI.util;
+package dev.lrxh.mcui.util;
 
 public class NameUtils {
     private static int index = 0;

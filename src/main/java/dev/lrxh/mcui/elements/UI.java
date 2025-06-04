@@ -1,8 +1,8 @@
-package dev.lrxh.mCUI.elements;
+package dev.lrxh.mcui.elements;
 
-import dev.lrxh.mCUI.MCUI;
-import dev.lrxh.mCUI.util.NameUtils;
-import dev.lrxh.mCUI.util.ServerUtils;
+import dev.lrxh.mcui.MCUI;
+import dev.lrxh.mcui.util.NameUtils;
+import dev.lrxh.mcui.util.ServerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

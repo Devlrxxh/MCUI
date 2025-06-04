@@ -1,4 +1,4 @@
-package dev.lrxh.mCUI.component;
+package dev.lrxh.mcui.component;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

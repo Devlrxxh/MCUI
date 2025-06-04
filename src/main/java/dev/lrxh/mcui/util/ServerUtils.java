@@ -1,6 +1,6 @@
-package dev.lrxh.mCUI.util;
+package dev.lrxh.mcui.util;
 
-import dev.lrxh.mCUI.MCUI;
+import dev.lrxh.mcui.MCUI;
 
 public class ServerUtils {
     public static int getPort() {
