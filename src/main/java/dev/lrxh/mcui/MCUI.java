@@ -49,7 +49,7 @@ public final class MCUI extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        ui.getUi().addViewer(event.getPlayer().getUniqueId());
+        ui.addViewer(event.getPlayer().getUniqueId());
     }
 
     public ComponentManager getComponentManager() {

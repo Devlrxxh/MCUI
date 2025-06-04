@@ -3,7 +3,7 @@ package dev.lrxh.mcui.elements;
 import org.bukkit.entity.Player;
 
 public enum DefaultUIRender {
-        ACTION_BAR {
+    ACTION_BAR {
         @Override
         public void render(Player player, Element element) {
             char unicodeChar = (char) element.getUnicode();

@@ -30,5 +30,10 @@ public class Element {
     public int getAscent() {
         return ascent;
     }
+
+    public String get() {
+        char unicodeChar = (char) unicode;
+        return  String.valueOf(unicodeChar);
+    }
 }
 

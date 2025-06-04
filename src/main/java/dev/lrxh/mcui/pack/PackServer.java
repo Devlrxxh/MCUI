@@ -31,7 +31,6 @@ public class PackServer {
         }
 
         filesToServe.put(path, file);
-        Bukkit.getLogger().info("[PackServer] Will serve " + file.getName() + " at path: " + path);
     }
 
     private static class FileInjector extends HttpInjector {

@@ -64,12 +64,21 @@ public class UI {
         return register(image);
     }
 
+    public Element register(String name, int height, int ascent) {
+        File image = new File(MCUI.getInstance().getDataFolder(), "assets/" + name);
+        return register(image, height, ascent);
+    }
+
     public Element register(File image) {
+        return register(image, 8, 7);
+    }
+
+    public Element register(File image, int height, int ascent) {
         Element element = new Element(
                 CURRENT_UNICODE++,
                 image,
-                8,
-                7
+                height,
+                ascent
         );
 
         elements.add(element);
@@ -130,8 +139,6 @@ public class UI {
                     }
                     """;
             Files.write(outputFolder.toPath().resolve("pack.mcmeta"), mcmeta.getBytes());
-
-            Bukkit.getLogger().info(("Dynamic resource pack generated at " + outputFolder.getAbsolutePath()));
         } catch (IOException ignored) {
         }
     }
