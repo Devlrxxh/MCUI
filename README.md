@@ -94,6 +94,8 @@ uiComponent.addViewer(player);     // or addViewer(player.getUniqueId());
 // Hide UI
 uiComponent.removeViewer(player);  // or removeViewer(player.getUniqueId());
 ```
+
+### In-Game Example
 ![image](https://github.com/user-attachments/assets/f6573c9a-1053-4726-8803-06253b6b8128)
 
 ---
