@@ -25,7 +25,11 @@ public abstract class UIComponent {
     }
 
     public Element register(String url) {
-        return getUi().register(AssetsLoader.load(url));
+        if (url.startsWith("http://") || url.startsWith("https://")) {
+            return getUi().register(AssetsLoader.load(url));
+        }
+
+        return getUi().register(url);
     }
 
     public void load() {

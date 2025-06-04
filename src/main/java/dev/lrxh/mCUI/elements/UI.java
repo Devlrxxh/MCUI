@@ -2,6 +2,7 @@ package dev.lrxh.mCUI.elements;
 
 import dev.lrxh.mCUI.MCUI;
 import dev.lrxh.mCUI.util.NameUtils;
+import dev.lrxh.mCUI.util.ServerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -47,16 +48,20 @@ public class UI {
     public void addViewer(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
-        player.setResourcePack("http://localhost:" + 80 + "/" + name, (@org.jetbrains.annotations.Nullable byte[]) null, true);
+        player.setResourcePack(getUrl(), (@org.jetbrains.annotations.Nullable byte[]) null, true);
         viewers.add(uuid);
     }
 
     public void removeViewer(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
         if (player == null) return;
-        String url = "http://localhost:" + 80 + "/" + name;
-        player.removeResourcePack(UUID.nameUUIDFromBytes(url.getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+        player.removeResourcePack(UUID.nameUUIDFromBytes(getUrl().getBytes(java.nio.charset.StandardCharsets.UTF_8)));
         viewers.remove(uuid);
+    }
+
+    public Element register(String name) {
+        File image = new File(MCUI.getInstance().getDataFolder(), "assets/" + name);
+        return register(image);
     }
 
     public Element register(File image) {
@@ -70,6 +75,10 @@ public class UI {
         elements.add(element);
 
         return element;
+    }
+
+    public String getUrl() {
+        return "http://localhost:" + ServerUtils.getPort() + "/" + name;
     }
 
     private void generate(File outputFolder) {

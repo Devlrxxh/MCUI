@@ -9,7 +9,7 @@ public class UIComponentExample extends UIComponent {
     private final Element element;
 
     public UIComponentExample() {
-        element = register("https://image.link/image.jpg");
+        element = register("image_0.png");
         load();
     }
 

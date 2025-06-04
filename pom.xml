@@ -59,6 +59,13 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+
+        <repository>
+            <id>mcbrawls-maven-releases</id>
+            <name>MC Brawls Maven</name>
+            <url>https://maven.andante.dev/releases</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
@@ -68,5 +75,30 @@
             <version>1.21-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>net.mcbrawls.inject</groupId>
+            <artifactId>api</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.mcbrawls.inject</groupId>
+            <artifactId>http</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.mcbrawls.inject</groupId>
+            <artifactId>spigot</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.94.Final</version> <!-- Check for latest version -->
+        </dependency>
+
     </dependencies>
 </project>
