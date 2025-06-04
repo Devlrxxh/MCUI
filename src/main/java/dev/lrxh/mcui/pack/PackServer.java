@@ -19,7 +19,7 @@ public class PackServer {
 
     public void start() {
         InjectSpigot.INSTANCE.registerInjector(new FileInjector());
-        Bukkit.getLogger().info("[PackServer] Injector registered. Ready to serve files via Inject.");
+        Bukkit.getLogger().info("[PackServer] Injector registered. Ready to serve files.");
     }
 
     public void addFile(String path, File file) {

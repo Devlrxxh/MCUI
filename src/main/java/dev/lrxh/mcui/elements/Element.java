@@ -7,12 +7,18 @@ public class Element {
     private final File image;
     private final int height;
     private final int ascent;
+    private ElementSpace elementSpace;
 
     public Element(int unicode, File image, int height, int ascent) {
         this.unicode = unicode;
         this.image = image;
         this.height = height;
         this.ascent = ascent;
+        this.elementSpace = null;
+    }
+
+    public void setElementSpace(ElementSpace elementSpace) {
+        this.elementSpace = elementSpace;
     }
 
     public int getUnicode() {
@@ -32,8 +38,12 @@ public class Element {
     }
 
     public String get() {
-        char unicodeChar = (char) unicode;
-        return  String.valueOf(unicodeChar);
+        if (elementSpace == null) {
+            return String.valueOf((char) unicode);
+        }
+
+        return String.valueOf(elementSpace.getChar()) + String.valueOf((char) unicode);
     }
+
 }
 

@@ -61,6 +61,10 @@ public class UI {
 
     public Element register(String name) {
         File image = new File(MCUI.getInstance().getDataFolder(), "assets/" + name);
+        if (!image.exists()) {
+            throw new IllegalArgumentException("Image file does not exist: " + image.getAbsolutePath());
+        }
+
         return register(image);
     }
 
@@ -70,7 +74,7 @@ public class UI {
     }
 
     public Element register(File image) {
-        return register(image, 8, 7);
+        return register(image, 8, 0);
     }
 
     public Element register(File image, int height, int ascent) {
@@ -104,11 +108,71 @@ public class UI {
             Files.createDirectories(textureFolder);
 
             StringBuilder fontJsonBuilder = new StringBuilder();
-            fontJsonBuilder.append("{\n\t\"providers\": [\n");
+            fontJsonBuilder.append("""
+{
+\t"providers": [
+\t\t{
+\t\t\t"type": "space",
+\t\t\t"advances": {
+\t\t\t\t" ": 4,
+\t\t\t\t"\\u0101": -1,
+\t\t\t\t"\\u0102": -2,
+\t\t\t\t"\\u0103": -3,
+\t\t\t\t"\\u0104": -4,
+\t\t\t\t"\\u0105": -5,
+\t\t\t\t"\\u0106": -6,
+\t\t\t\t"\\u0107": -7,
+\t\t\t\t"\\u0108": -8,
+\t\t\t\t"\\u0109": -9,
+\t\t\t\t"\\u010a": -10,
+\t\t\t\t"\\u010b": -11,
+\t\t\t\t"\\u010c": -12,
+\t\t\t\t"\\u010d": -13,
+\t\t\t\t"\\u010e": -14,
+\t\t\t\t"\\u010f": -15,
+\t\t\t\t"\\u0110": -16,
+\t\t\t\t"\\u0111": -17,
+\t\t\t\t"\\u0120": -32,
+\t\t\t\t"\\u0121": -33,
+\t\t\t\t"\\u0130": -48,
+\t\t\t\t"\\u0131": -49,
+\t\t\t\t"\\u0140": -64,
+\t\t\t\t"\\u0141": -65,
+\t\t\t\t"\\u0201": 1,
+\t\t\t\t"\\u0202": 2,
+\t\t\t\t"\\u0203": 3,
+\t\t\t\t"\\u0204": 4,
+\t\t\t\t"\\u0205": 5,
+\t\t\t\t"\\u0206": 6,
+\t\t\t\t"\\u0207": 7,
+\t\t\t\t"\\u0208": 8,
+\t\t\t\t"\\u0209": 9,
+\t\t\t\t"\\u020a": 10,
+\t\t\t\t"\\u020b": 11,
+\t\t\t\t"\\u020c": 12,
+\t\t\t\t"\\u020d": 13,
+\t\t\t\t"\\u020e": 14,
+\t\t\t\t"\\u020f": 15,
+\t\t\t\t"\\u0210": 16,
+\t\t\t\t"\\u0220": 32,
+\t\t\t\t"\\u0230": 48,
+\t\t\t\t"\\u0240": 64
+\t\t\t}
+\t\t}""");
+
+            if (!elements.isEmpty()) {
+                fontJsonBuilder.append(",\n");
+            }
 
             int i = 0;
             for (Element e : elements) {
+                if (e.getImage() == null) continue;
+
                 BufferedImage img = ImageIO.read(e.getImage());
+
+                if (img.getHeight() > 64 || img.getWidth() > 64) {
+                    throw new IllegalArgumentException("Image dimensions exceed 64x64: " + e.getImage().getAbsolutePath());
+                }
 
                 String textureName = "icon_" + i + ".png";
                 File textureFile = textureFolder.resolve(textureName).toFile();
@@ -124,6 +188,7 @@ public class UI {
 
                 if (i < elements.size() - 1) fontJsonBuilder.append(",");
                 fontJsonBuilder.append("\n");
+                i++;
             }
 
             fontJsonBuilder.append("\t]\n}\n");
