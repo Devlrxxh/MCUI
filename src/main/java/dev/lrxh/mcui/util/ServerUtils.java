@@ -4,6 +4,6 @@ import dev.lrxh.mcui.MCUI;
 
 public class ServerUtils {
     public static int getPort() {
-        return MCUI.getInstance().getServer().getPort();
+        return MCUI.INSTANCE.getServer().getPort();
     }
 }

@@ -42,7 +42,7 @@ public class Element {
             return String.valueOf((char) unicode);
         }
 
-        return String.valueOf(elementSpace.getChar()) + String.valueOf((char) unicode);
+        return elementSpace.getChar() + (char) unicode;
     }
 
 }

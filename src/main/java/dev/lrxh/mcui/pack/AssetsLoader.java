@@ -15,7 +15,7 @@ public class AssetsLoader {
     public static File load(String imageUrl) {
         try {
             BufferedImage image = ImageIO.read(new URL(imageUrl));
-            File saveDirectory = new File(MCUI.getInstance().getDataFolder(), "assets");
+            File saveDirectory = new File(MCUI.INSTANCE.getDataFolder(), "assets");
 
             if (!saveDirectory.exists()) {
                 if (!saveDirectory.mkdirs()) {

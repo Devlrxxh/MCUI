@@ -11,19 +11,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MCUI extends JavaPlugin implements Listener {
-    private static MCUI instance;
+    public static MCUI INSTANCE;
     private ComponentManager componentManager;
     private UIComponentExample ui;
     private PackServer packServer;
 
-    public static MCUI getInstance() {
-        return instance;
-    }
-
-
     @Override
     public void onEnable() {
-        instance = this;
+        INSTANCE = this;
 
         this.componentManager = new ComponentManager();
 
@@ -32,8 +27,7 @@ public final class MCUI extends JavaPlugin implements Listener {
 
 
         // Example UI Component
-        ui = new UIComponentExample();
-        componentManager.registerComponent(ui);
+        MCUI.INSTANCE.getComponentManager().registerComponent(new UIComponentExample());
         //
 
 
