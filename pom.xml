@@ -98,6 +98,7 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
             <version>4.1.94.Final</version> <!-- Check for latest version -->
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
