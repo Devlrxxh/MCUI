@@ -1,14 +1,14 @@
 # 🧩 MCUI – Minecraft UI Library
 
-**MCUI** is a lightweight, extensible component-based UI library for Minecraft, designed to make in-game UI rendering easier and more modular.
+**MCUI** is a lightweight, component-based UI library for Minecraft, designed to make in-game Image rendering easier
 
 ## ✨ Features
 
-- 📦 Component-based UI system
-- 🖼️ Easy element rendering via `DefaultUIRender`
-- ⏱️ Tick-based rendering lifecycle
-- 🔌 Built-in support for spacing and layout with `ElementSpace`
-- 🧱 Simple integration and extensibility
+- 📦 Component-based UI system  
+- 🖼️ Easy element rendering via `DefaultUIRender`  
+- ⏱️ Tick-based rendering lifecycle  
+- 🔌 Built-in support for spacing and layout with `ElementSpace`  
+- 🧱 Simple integration and extensibility  
 
 ---
 
@@ -16,9 +16,9 @@
 
 ### 🧰 Requirements
 
-- Java 21
-- PaperMC 1.21+
-- Maven
+- Java 21  
+- PaperMC 1.21+  
+- Maven  
 
 ---
 
@@ -37,14 +37,17 @@ Add MCUI to your Maven project:
     <groupId>dev.lrxh</groupId>
     <artifactId>MCUI</artifactId>
     <version>1.0.0</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
-> ⚠️ **Important:** You must declare `MCUI` as a dependency in your `plugin.yml` to ensure your plugin loads after MCUI.  
-> Example:
-> ```yaml
-> depend: [MCUI]
-> ```
+> ⚠️ **Important:**
+> - You must declare `MCUI` as a dependency in your `plugin.yml` to ensure your plugin loads after MCUI.  
+>   Example:
+>   ```yaml
+>   depend: [MCUI]
+>   ```
+> - **Be sure to place MCUI JAR inside the `plugins/` folder.** Otherwise, your plugin will not load.
 
 ---
 
@@ -95,8 +98,10 @@ uiComponent.addViewer(player);     // or addViewer(player.getUniqueId());
 uiComponent.removeViewer(player);  // or removeViewer(player.getUniqueId());
 ```
 
-### In-Game Example
-![image](https://github.com/user-attachments/assets/f6573c9a-1053-4726-8803-06253b6b8128)
+### 🔍 Full Example Project
+
+You can find a full working example at:  
+👉 **[https://github.com/Devlrxxh/MCUIExample](https://github.com/Devlrxxh/MCUIExample)**
 
 ---
 
@@ -108,6 +113,6 @@ This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for d
 
 ## 🙌 Acknowledgements
 
-- [PaperMC](https://papermc.io/)
-- [Netty](https://netty.io/)
+- [PaperMC](https://papermc.io/)  
+- [Netty](https://netty.io/)  
 - [MCBrawls Inject Framework](https://github.com/MCBrawls/Inject)
