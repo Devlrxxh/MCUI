@@ -98,9 +98,10 @@ uiComponent.addViewer(player);     // or addViewer(player.getUniqueId());
 uiComponent.removeViewer(player);  // or removeViewer(player.getUniqueId());
 ```
 
-### In-Game Example
+### 🔍 Full Example Project
 
-![image](https://github.com/user-attachments/assets/f6573c9a-1053-4726-8803-06253b6b8128)
+You can find a full working example at:  
+👉 **[https://github.com/Devlrxxh/MCUIExample](https://github.com/Devlrxxh/MCUIExample)**
 
 ---
 
