@@ -42,4 +42,5 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy --settings ~/.m2/settings.xml
+        run: mvn deploy --settings ~/.m2/settings.xml -X -e
+
