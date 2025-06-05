@@ -5,6 +5,7 @@ import dev.lrxh.mcui.elements.UI;
 import dev.lrxh.mcui.pack.AssetsLoader;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.UUID;
 
 public abstract class UIComponent {
@@ -20,8 +21,8 @@ public abstract class UIComponent {
 
     public abstract void tick(Player player);
 
-    public Element register(String image, int height, int ascent) {
-        return getUi().register(image, height, ascent);
+    public Element register(File file, int height, int ascent) {
+        return getUi().register(file, height, ascent);
     }
 
     public Element register(String url) {
@@ -30,6 +31,14 @@ public abstract class UIComponent {
         }
 
         return getUi().register(url);
+    }
+
+    public Element register(String url, int height, int ascent) {
+        if (url.startsWith("http://") || url.startsWith("https://")) {
+            return getUi().register(AssetsLoader.load(url), height, ascent);
+        }
+
+        return getUi().register(url, height, ascent);
     }
 
     public void addViewer(Player player) {
