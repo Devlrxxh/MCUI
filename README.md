@@ -1,6 +1,6 @@
 # 🧩 MCUI – Minecraft UI Library
 
-**MCUI** is a lightweight, extensible component-based UI library for Minecraft, designed to make in-game Image rendering easier and more modular
+**MCUI** is a lightweight, component-based UI library for Minecraft, designed to make in-game Image rendering easier
 
 ## ✨ Features
 
