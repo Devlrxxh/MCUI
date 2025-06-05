@@ -37,6 +37,7 @@ Add MCUI to your Maven project:
     <groupId>dev.lrxh</groupId>
     <artifactId>MCUI</artifactId>
     <version>1.0.0</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
