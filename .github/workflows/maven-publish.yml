@@ -23,9 +23,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-
       - name: Create settings.xml for GitHub Packages
         run: |
           mkdir -p ~/.m2
@@ -35,11 +32,14 @@ jobs:
               <server>
                 <id>github</id>
                 <username>${{ github.actor }}</username>
-                <password>${{ secrets.GITHUB_TOKEN }}</password>
+                <password>${{ secrets.PAT_TOKEN }}</password>
               </server>
             </servers>
           </settings>
           EOF
 
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
       - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy
+        run: mvn deploy --settings ~/.m2/settings.xml
