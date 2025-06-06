@@ -17,7 +17,7 @@
 ### 🧰 Requirements
 
 - Java 21  
-- PaperMC 1.21+  
+- PaperMC 1.21.4+  
 - Maven  
 
 ---
