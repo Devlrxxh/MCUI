@@ -13,12 +13,12 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PackServer {
+public class PackServer extends HttpInjector {
 
     private static final Map<String, File> filesToServe = new HashMap<>();
 
     public void start() {
-        InjectSpigot.INSTANCE.registerInjector(new FileInjector());
+        InjectSpigot.INSTANCE.registerInjector(this);
         Bukkit.getLogger().info("[PackServer] Injector registered. Ready to serve files.");
     }
 
@@ -33,39 +33,37 @@ public class PackServer {
         filesToServe.put(path, file);
     }
 
-    private static class FileInjector extends HttpInjector {
-        @Override
-        public HttpByteBuf intercept(ChannelHandlerContext ctx, HttpRequest request) {
-            String requestPath = request.getRequestURI();
-            File file = filesToServe.get(requestPath);
+    @Override
+    public HttpByteBuf intercept(ChannelHandlerContext ctx, HttpRequest request) {
+        String requestPath = request.getRequestURI();
+        File file = filesToServe.get(requestPath);
 
-            if (file == null) {
-                return null;
-            }
+        if (file == null) {
+            return null;
+        }
 
-            if (!file.exists()) {
-                HttpByteBuf notFoundBuf = HttpByteBuf.httpBuf(ctx);
-                notFoundBuf.writeStatusLine("1.1", 404, "Not Found");
-                notFoundBuf.writeText("404 - File Not Found: " + requestPath);
-                return notFoundBuf;
-            }
+        if (!file.exists()) {
+            HttpByteBuf notFoundBuf = HttpByteBuf.httpBuf(ctx);
+            notFoundBuf.writeStatusLine("1.1", 404, "Not Found");
+            notFoundBuf.writeText("404 - File Not Found: " + requestPath);
+            return notFoundBuf;
+        }
 
-            try {
-                byte[] raw = Files.readAllBytes(file.toPath());
+        try {
+            byte[] raw = Files.readAllBytes(file.toPath());
 
-                HttpByteBuf buf = HttpByteBuf.httpBuf(ctx);
-                buf.writeStatusLine("1.1", 200, "OK");
-                buf.writeHeader("Content-Type", "application/zip");
-                buf.writeHeader("Content-Length", String.valueOf(raw.length));
-                buf.writeBytes(raw);
+            HttpByteBuf buf = HttpByteBuf.httpBuf(ctx);
+            buf.writeStatusLine("1.1", 200, "OK");
+            buf.writeHeader("Content-Type", "application/zip");
+            buf.writeHeader("Content-Length", String.valueOf(raw.length));
+            buf.writeBytes(raw);
 
-                return buf;
-            } catch (IOException e) {
-                HttpByteBuf errBuf = HttpByteBuf.httpBuf(ctx);
-                errBuf.writeStatusLine("1.1", 500, "Internal Server Error");
-                errBuf.writeText("[PackServer] Failed to read file: " + e.getMessage());
-                return errBuf;
-            }
+            return buf;
+        } catch (IOException e) {
+            HttpByteBuf errBuf = HttpByteBuf.httpBuf(ctx);
+            errBuf.writeStatusLine("1.1", 500, "Internal Server Error");
+            Bukkit.getLogger().info("[PackServer] Failed to read file: " + e.getMessage());
+            return errBuf;
         }
     }
 }
