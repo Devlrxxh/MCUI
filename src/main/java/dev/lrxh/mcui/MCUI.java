@@ -23,7 +23,6 @@ public final class MCUI extends JavaPlugin {
         Bukkit.getScheduler().runTaskTimer(this, new ComponentRunnable(componentManager), 0L, 2L);
     }
 
-
     public ComponentManager getComponentManager() {
         return componentManager;
     }
