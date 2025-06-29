@@ -5,7 +5,7 @@
 ## ✨ Features
 
 - 📦 Component-based UI system  
-- 🖼️ Easy element rendering via `DefaultUIRender`  
+- 🖼️ Easy element rendering via `UIRender`  
 - ⏱️ Tick-based rendering lifecycle  
 - 🔌 Built-in support for spacing and layout with `ElementSpace`  
 - 🧱 Simple integration and extensibility  
