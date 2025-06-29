@@ -68,12 +68,12 @@ public class UIComponentExample extends UIComponent {
 
     @Override
     public void tick(Player player) {
-        DefaultUIRender.ACTION_BAR.render(player,
-                ElementSpace.BACKSPACE_48,
+        UIRender.ACTION_BAR_RENDER.render(player,
+                ElementSpace.BACKSPACE_48.createElement(),
                 element,
-                ElementSpace.BACKSPACE_1,
+                ElementSpace.BACKSPACE_1.createElement(),
                 element,
-                ElementSpace.BACKSPACE_1,
+                ElementSpace.BACKSPACE_1.createElement(),
                 element
         );
     }

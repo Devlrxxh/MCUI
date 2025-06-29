@@ -1,7 +1,6 @@
 package dev.lrxh.mcui;
 
 import dev.lrxh.mcui.component.ComponentManager;
-import dev.lrxh.mcui.component.ComponentRunnable;
 import dev.lrxh.mcui.pack.PackServer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,7 +19,7 @@ public final class MCUI extends JavaPlugin {
         packServer = new PackServer();
         packServer.start();
 
-        Bukkit.getScheduler().runTaskTimer(this, new ComponentRunnable(componentManager), 0L, 2L);
+        Bukkit.getScheduler().runTaskTimer(this, () -> componentManager.run(), 0L, 2L);
     }
 
     public ComponentManager getComponentManager() {
